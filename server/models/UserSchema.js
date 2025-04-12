@@ -29,8 +29,8 @@ const user = new mongoose.Schema(
       type: String,
       default: "https://cdn-icons-png.flaticon.com/128/3177/3177440.png",
     },
-    favourites: [{ type: mongoose.Types.ObjectId, ref: "books" }],
-    cart: [{ type: mongoose.Types.ObjectId, ref: "books" }],
+    favourites: [{ type: mongoose.Types.ObjectId, ref: "Book" }],
+    cart: [{ type: mongoose.Types.ObjectId, ref: "Book" }],
     orders: [{ type: mongoose.Types.ObjectId, ref: "orders" }],
   },
   { timestamps: true }

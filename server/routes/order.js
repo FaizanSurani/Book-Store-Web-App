@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Order = require("../models/OrdersSchema");
-const books = require("../models/BookSchema");
+const Book = require("../models/BookSchema");
 const user = require("../models/UserSchema");
 const { authentication } = require("./auth");
 
@@ -14,7 +14,7 @@ router.post("/placeOrder", authentication, async (req, res) => {
     }
 
     for (const orderData of order) {
-      const newOrder = new Order({ user: id, books: orderData._id });
+      const newOrder = new Order({ user: id, Book: orderData._id });
       const orderDb = await newOrder.save();
 
       await user.findByIdAndUpdate(id, {
@@ -36,12 +36,14 @@ router.get("/orderHistory", authentication, async (req, res) => {
 
     const userData = await user.findById(id).populate({
       path: "orders",
-      populate: { path: "books" },
+      populate: { path: "Book" },
     });
 
     const ordersData = userData.orders.reverse();
     return res.status(200).json({ data: ordersData });
   } catch (error) {
+    console.log(error);
+
     return res.status(500).json({ message: "Server Error!!" });
   }
 });
@@ -49,7 +51,7 @@ router.get("/orderHistory", authentication, async (req, res) => {
 router.get("/allOrders", authentication, async (req, res) => {
   try {
     const usersOrder = await Order.find()
-      .populate({ path: "books" })
+      .populate({ path: "Book" })
       .populate({ path: "user" })
       .sort({ createdAt: -1 });
 

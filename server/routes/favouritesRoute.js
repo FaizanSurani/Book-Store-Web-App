@@ -40,9 +40,11 @@ router.get("/getFavouriteBooks", authentication, async (req, res) => {
     const userData = await user.findById(id).populate("favourites");
 
     const favouritesBooks = userData.favourites;
+
     return res.status(200).json({ data: favouritesBooks });
   } catch (error) {
     return res.status(500).json({ message: "Server Error!!" });
   }
 });
+
 module.exports = router;

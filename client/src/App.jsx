@@ -55,7 +55,7 @@ export default function App() {
                   element={<OrderHistory />}
                 />
                 <Route
-                  path="/profile/recommendation"
+                  path="/profile/recommendation_api"
                   element={<RecommendedBooks />}
                 />
               </Route>

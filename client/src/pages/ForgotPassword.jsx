@@ -56,6 +56,12 @@ export default function ForgotPassword() {
               Send Reset Link
             </button>
           </div>
+          <div className="mt-4 text-center text-zinc-400">
+            <p>Remembered your password?</p>
+            <a href="/login" className="text-blue-500 hover:underline">
+              Login
+            </a>
+          </div>
         </form>
       </div>
     </>

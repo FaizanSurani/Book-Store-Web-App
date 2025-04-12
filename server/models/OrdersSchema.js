@@ -6,9 +6,9 @@ const orders = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "user",
     },
-    books: {
+    Book: {
       type: mongoose.Types.ObjectId,
-      ref: "books",
+      ref: "Book",
     },
     status: {
       type: String,

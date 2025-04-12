@@ -26,7 +26,7 @@ router.post(
     try {
       const existinguser = await user.findOne({ username: username });
       if (existinguser) {
-        return res.status(400).json({ message: "userAlready Exists!!" });
+        return res.status(400).json({ message: "User Already Exists!!" });
       }
 
       const existingEmail = await user.findOne({ email: email });
@@ -41,7 +41,7 @@ router.post(
         address,
       });
       await User.save();
-      return res.status(200).json({ message: "userCreated Succesfully!!" });
+      return res.status(200).json({ message: "User Created Succesfully!!" });
     } catch (error) {
       res.status(500).json(error);
     }

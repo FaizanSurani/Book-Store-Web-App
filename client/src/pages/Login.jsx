@@ -29,6 +29,7 @@ export default function Login() {
           password,
         });
         login();
+        console.log(res);
         changeRole(res.data.role);
         localStorage.setItem("id", res.data.id);
         localStorage.setItem("authToken", res.data.authToken);

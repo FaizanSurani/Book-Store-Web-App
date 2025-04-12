@@ -10,8 +10,9 @@ router.post("/forgotPassword", async (req, res) => {
   try {
     const userData = await user.findOne({ email });
     if (!userData) {
-      return res.json({ message: "User not found!" });
+      return res.status(404).json({ message: "User not found!" });
     }
+
     const data = {
       user: {
         id: userData.id,
@@ -24,12 +25,11 @@ router.post("/forgotPassword", async (req, res) => {
       expiresIn: "1d",
     });
 
-    user.resetPasswordToken = token;
-    // await user.save();
+    userData.resetPasswordToken = token;
+    await userData.save();
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-      host: "smtp.gmail.com",
+      host: "live.smtp.mailtrap.io",
       port: 587,
       secure: false,
       auth: {
@@ -39,23 +39,20 @@ router.post("/forgotPassword", async (req, res) => {
     });
 
     const mailOptions = {
-      from: { address: process.env.USER_MAIL },
+      from: process.env.USER_MAIL,
       to: email,
       subject: "Reset Password",
       html: `<h1>Reset Your Password</h1>
-      <p>Click on the following link to reset your password:</p>
-      <a href="http://localhost:5173/reset-password/${token}">http://localhost:5173/reset-password/${token}</a>
-      <p>The link will expire in 1 day</p>
-      <p>If you didn't request a password reset, please ignore this email.</p>`,
+        <p>Click on the following link to reset your password:</p>
+        <a href="http://localhost:5173/reset-password/${token}">Reset Password</a>
+        <p>The link will expire in 1 day</p>
+        <p>If you didn't request a password reset, please ignore this email.</p>`,
     };
 
-    const sendEmail = async (transporter, mailOptions) => {
-      await transporter.sendMail(mailOptions);
-      res.status(200).send({ message: "Email sent!" });
-    };
-
-    await sendEmail(transporter, mailOptions);
+    await transporter.sendMail(mailOptions);
+    res.status(200).send({ message: "Email sent!" });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: error.message });
   }
 });
