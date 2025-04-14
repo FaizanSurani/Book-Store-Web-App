@@ -7,7 +7,7 @@ router.get("/recommendation_api/:user_id", async (req, res) => {
 
   try {
     const response = await axios.get(
-      `http://127.0.0.1:3000/recommendation_api/${user_id}`
+      `https://book-store-web-app-recommendation-api.onrender.com/recommendation_api/${user_id}`
     );
     const recommended_products = response.data.recommended_products;
     res.json({ recommended_products });
