@@ -41,7 +41,7 @@ export default function BookDetails() {
 
   const handleCart = async () => {
     const res = await axios.put(
-      "http://localhost:5000/api/v1/addItems",
+      "https://book-store-web-app-3.onrender.com/api/v1/addItems",
       {},
       { headers }
     );
@@ -50,7 +50,7 @@ export default function BookDetails() {
 
   const handleDelete = async () => {
     const response = await axios.delete(
-      "http://localhost:5000/api/v1/deleteBook",
+      "https://book-store-web-app-3.onrender.com/api/v1/deleteBook",
       { headers }
     );
     alert(response.data.message);
