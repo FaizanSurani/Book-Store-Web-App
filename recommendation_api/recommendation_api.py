@@ -108,10 +108,11 @@ def get_recommendations(user_id):
         print("Error while generating recommendations:", str(e))
         return []
 
-@app.route("/recommendation_api/<string:user_id>", methods=['GET'])
+@app.route("/recommendation_api/<string:user_id>", methods=['GET', "HEAD"])
 def recommendations(user_id):
     recommended_products = get_recommendations(user_id)
     return jsonify({'recommended_products': recommended_products})
 
 if __name__ == '__main__':
-    app.run(port=3000, debug=True)
+    port = int(os.environ.get("PORT", 3000))
+    app.run(host='0.0.0.0', port=port)
