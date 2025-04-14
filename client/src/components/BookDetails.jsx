@@ -22,7 +22,9 @@ export default function BookDetails() {
 
   useEffect(() => {
     const bookdetails = async () => {
-      const resp = await axios.get(`http://localhost:5000/api/v1/bookid/${id}`);
+      const resp = await axios.get(
+        `https://book-store-web-app-3.onrender.com/api/v1/bookid/${id}`
+      );
       setBookDetails(resp.data.data);
     };
     bookdetails();
@@ -30,7 +32,7 @@ export default function BookDetails() {
 
   const handleFav = async () => {
     const res = await axios.put(
-      "http://localhost:5000/api/v1/addFavourites",
+      "https://book-store-web-app-3.onrender.com/api/v1/addFavourites",
       {},
       { headers }
     );

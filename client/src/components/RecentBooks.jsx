@@ -9,7 +9,7 @@ export default function RecentBooks() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get(
-        "http://localhost:5000/api/v1/getRecentBooks"
+        "https://book-store-web-app-3.onrender.com/api/v1/getRecentBooks"
       );
       console.log(response.data.data);
       setbooks(response.data.data);

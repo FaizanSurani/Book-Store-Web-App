@@ -24,10 +24,13 @@ export default function Login() {
       if (email === "" || password === "") {
         alert("All fields are necessary");
       } else {
-        const res = await axios.post("http://localhost:5000/api/v1/login", {
-          email,
-          password,
-        });
+        const res = await axios.post(
+          "https://book-store-web-app-3.onrender.com/api/v1/login",
+          {
+            email,
+            password,
+          }
+        );
         login();
         console.log(res);
         changeRole(res.data.role);

@@ -16,9 +16,12 @@ export default function Profile() {
 
   useEffect(() => {
     const fetch = async () => {
-      const response = await axios.get("http://localhost:5000/api/v1/getUser", {
-        headers,
-      });
+      const response = await axios.get(
+        "https://book-store-web-app-3.onrender.com/api/v1/getUser",
+        {
+          headers,
+        }
+      );
       console.log(response.data);
       setUserData(response.data);
     };

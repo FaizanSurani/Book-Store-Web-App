@@ -17,9 +17,12 @@ export default function Cart() {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/v1/cartItems", {
-          headers,
-        });
+        const res = await axios.get(
+          "https://book-store-web-app-3.onrender.com/api/v1/cartItems",
+          {
+            headers,
+          }
+        );
         setCart(res.data.data);
         console.log("Fetched cart items:", res.data.data);
       } catch (error) {
@@ -31,7 +34,7 @@ export default function Cart() {
 
   const deleteItem = async (bookid) => {
     const response = await axios.put(
-      `http://localhost:5000/api/v1/removeItems/${bookid}`,
+      `https://book-store-web-app-3.onrender.com/api/v1/removeItems/${bookid}`,
       {},
       { headers }
     );
@@ -49,7 +52,7 @@ export default function Cart() {
   const placeOrder = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/v1/placeOrder",
+        "https://book-store-web-app-3.onrender.com/api/v1/placeOrder",
         { order: cart },
         { headers }
       );

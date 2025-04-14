@@ -15,7 +15,7 @@ export default function OrderHistory() {
     const fetchOrders = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/orderHistory",
+          "https://book-store-web-app-3.onrender.com/api/v1/orderHistory",
           {
             headers,
           }

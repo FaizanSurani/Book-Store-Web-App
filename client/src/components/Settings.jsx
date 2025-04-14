@@ -16,9 +16,12 @@ export default function Settings() {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await axios.get("http://localhost:5000/api/v1/getUser", {
-        headers,
-      });
+      const res = await axios.get(
+        "https://book-store-web-app-3.onrender.com/api/v1/getUser",
+        {
+          headers,
+        }
+      );
       setValues({
         username: res.data.username,
         email: res.data.email,
@@ -34,7 +37,7 @@ export default function Settings() {
 
   const changeDetails = async () => {
     const res = await axios.put(
-      "http://localhost:5000/api/v1/updateProfile",
+      "https://book-store-web-app-3.onrender.com/api/v1/updateProfile",
       values,
       { headers }
     );

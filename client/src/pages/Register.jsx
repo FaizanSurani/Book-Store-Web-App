@@ -29,12 +29,15 @@ export default function Register() {
       ) {
         alert("All fields are necessary");
       } else {
-        const res = await axios.post("http://localhost:5000/api/v1/sign-up", {
-          username,
-          email,
-          password,
-          address,
-        });
+        const res = await axios.post(
+          "https://book-store-web-app-3.onrender.com/api/v1/sign-up",
+          {
+            username,
+            email,
+            password,
+            address,
+          }
+        );
         alert(res.data.message);
         console.log(res);
         navigate("/login");

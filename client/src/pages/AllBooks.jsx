@@ -8,7 +8,9 @@ export default function AllBooks() {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await axios.get("http://localhost:5000/api/v1/getAllBooks");
+      const res = await axios.get(
+        "https://book-store-web-app-3.onrender.com/api/v1/getAllBooks"
+      );
       console.log(res.data.data);
       setAllBooks(res.data.data);
     };
