@@ -24,6 +24,7 @@ app.use("/api/v1", require("./routes/order"));
 app.use("/api/v1", require("./routes/forgotPassword"));
 app.use("/api/v1", require("./routes/resetPassword"));
 app.use("/api/v1", require("./routes/recommendationRoute"));
+app.use("/api/v1", require("./routes/payments"));
 
 app.listen(process.env.PORT, () => {
   console.log(`Server Listening to ${process.env.PORT}`);
