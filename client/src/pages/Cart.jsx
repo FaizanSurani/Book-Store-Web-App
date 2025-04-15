@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router";
 export default function Cart() {
   const navigate = useNavigate();
   const { bookid } = useParams();
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(null);
   const [total, setTotal] = useState(0);
   const headers = {
     id: localStorage.getItem("id"),
@@ -33,18 +33,29 @@ export default function Cart() {
   }, []);
 
   const deleteItem = async (bookid) => {
-    const response = await axios.put(
-      `https://book-store-web-app-3.onrender.com/api/v1/removeItems/${bookid}`,
-      {},
-      { headers }
-    );
-    alert(response.data.message);
-    setCart(response.data.data);
+    const updatedCart = cart.filter((item) => item._id !== bookid);
+    setCart(updatedCart);
+
+    try {
+      const response = await axios.put(
+        `https://book-store-web-app-3.onrender.com/api/v1/removeItems/${bookid}`,
+        {},
+        { headers }
+      );
+      alert(response.data.message);
+    } catch (error) {
+      console.error("Failed to delete item:", error);
+      setCart(cart);
+    }
   };
 
   useEffect(() => {
     if (cart && cart.length > 0) {
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      const total = cart.reduce((sum, item) => {
+        const price = Number(item.price);
+        const quantity = Number(item.quantity) || 1;
+        return sum + price * quantity;
+      }, 0);
       setTotal(total);
     }
   }, [cart]);
@@ -54,10 +65,17 @@ export default function Cart() {
       const res = await axios.post(
         "https://book-store-web-app-3.onrender.com/api/v1/placeOrder",
         { order: cart },
-        { headers }
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
-      alert(res.data.message);
-      navigate("/profile/orderHistory");
+      if (res.data.sessionURL) {
+        window.location.href = res.data.sessionURL;
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
     } catch (error) {
       console.log("Failed to place order:", error);
     }

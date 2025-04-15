@@ -6,14 +6,35 @@ const orders = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "user",
     },
-    Book: {
-      type: mongoose.Types.ObjectId,
-      ref: "Book",
-    },
+    items: [
+      {
+        Book: {
+          type: mongoose.Types.ObjectId,
+          ref: "Book",
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
     status: {
       type: String,
       default: "Order Placed",
       enum: ["Order Placed" || "Out For Delivery, Delivered, Cancelled"],
+    },
+    paymentStatus: {
+      type: String,
+      default: "Pending",
+      enum: ["Pending", "Paid"],
+    },
+    total: {
+      type: Number,
+      required: true,
     },
   },
   { timestamps: true }
