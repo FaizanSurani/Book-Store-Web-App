@@ -18,7 +18,7 @@ export default function Cart() {
     const fetch = async () => {
       try {
         const res = await axios.get(
-          "https://book-store-web-app-3.onrender.com/api/v1/cartItems",
+          "https://book-store-web-app-jl7e.onrender.com/api/v1/cartItems",
           {
             headers,
           }
@@ -38,7 +38,7 @@ export default function Cart() {
 
     try {
       const response = await axios.put(
-        `https://book-store-web-app-3.onrender.com/api/v1/removeItems/${bookid}`,
+        `https://book-store-web-app-jl7e.onrender.com/api/v1/removeItems/${bookid}`,
         {},
         { headers }
       );
@@ -63,7 +63,7 @@ export default function Cart() {
   const placeOrder = async () => {
     try {
       const res = await axios.post(
-        "https://book-store-web-app-3.onrender.com/api/v1/placeOrder",
+        "https://book-store-web-app-jl7e.onrender.com/api/v1/placeOrder",
         { order: cart },
         {
           headers: {

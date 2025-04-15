@@ -25,7 +25,7 @@ export default function UpdateBooks() {
   useEffect(() => {
     const bookdetails = async () => {
       const resp = await axios.get(
-        `https://book-store-web-app-3.onrender.com/api/v1/bookid/${id}`
+        `https://book-store-web-app-jl7e.onrender.com/api/v1/bookid/${id}`
       );
       setBookData(resp.data.data);
     };
@@ -49,7 +49,7 @@ export default function UpdateBooks() {
         alert("All Fields are required");
       } else {
         const response = await axios.put(
-          "https://book-store-web-app-3.onrender.com/api/v1/updateBook",
+          "https://book-store-web-app-jl7e.onrender.com/api/v1/updateBook",
           {
             url,
             title,

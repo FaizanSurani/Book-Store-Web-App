@@ -12,7 +12,7 @@ export default function Favourites() {
   useEffect(() => {
     const fetch = async () => {
       const res = await axios.get(
-        "https://book-store-web-app-3.onrender.com/api/v1/getFavouriteBooks",
+        "https://book-store-web-app-jl7e.onrender.com/api/v1/getFavouriteBooks",
         { headers }
       );
       setFav(res.data.data);

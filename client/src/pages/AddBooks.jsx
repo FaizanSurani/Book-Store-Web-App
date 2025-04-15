@@ -35,7 +35,7 @@ export default function AddBooks() {
         alert("All Fields are required");
       } else {
         const response = await axios.post(
-          "https://book-store-web-app-3.onrender.com/api/v1/addBook",
+          "https://book-store-web-app-jl7e.onrender.com/api/v1/addBook",
           {
             url,
             title,

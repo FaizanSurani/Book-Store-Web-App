@@ -5,7 +5,7 @@ const payment = require("../models/PaymentSchema");
 const express = require("express");
 const user = require("../models/UserSchema");
 const Order = require("../models/OrdersSchema");
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const endpointSecret = process.env.endpointSecret;
 
 router.post("/placeOrder", authentication, async (req, res) => {
   try {

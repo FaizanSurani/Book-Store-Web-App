@@ -21,7 +21,7 @@ export default function AllOrders() {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "https://book-store-web-app-3.onrender.com/api/v1/allOrders",
+        "https://book-store-web-app-jl7e.onrender.com/api/v1/allOrders",
         { headers }
       );
       setOrders(response.data.data);
@@ -38,7 +38,7 @@ export default function AllOrders() {
     const id = orders[i]._id;
     try {
       const res = await axios.put(
-        `https://book-store-web-app-3.onrender.com/api/v1/updateStatus/${id}`,
+        `https://book-store-web-app-jl7e.onrender.com/api/v1/updateStatus/${id}`,
         values,
         { headers }
       );

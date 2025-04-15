@@ -25,7 +25,7 @@ export default function Login() {
         alert("All fields are necessary");
       } else {
         const res = await axios.post(
-          "https://book-store-web-app-3.onrender.com/api/v1/login",
+          "https://book-store-web-app-jl7e.onrender.com/api/v1/login",
           {
             email,
             password,
