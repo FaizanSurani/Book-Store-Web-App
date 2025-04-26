@@ -13,6 +13,7 @@ app.use(
       "https://book-store-web-app-vgl5.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(express.json());
