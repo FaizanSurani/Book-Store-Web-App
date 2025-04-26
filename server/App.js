@@ -8,7 +8,10 @@ DBConnect();
 
 app.use(
   cors({
-    origin: ["*", "https://book-store-web-app-vgl5.vercel.app/"],
+    origin: [
+      "http://localhost:5173",
+      "https://book-store-web-app-vgl5.vercel.app",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
