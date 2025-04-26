@@ -11,7 +11,7 @@ export default function Cart() {
   const [total, setTotal] = useState(0);
   const headers = {
     id: localStorage.getItem("id"),
-    authorization: `Bearer ${localStorage.getItem("authToken")}`,
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
   };
 
   useEffect(() => {
@@ -33,6 +33,7 @@ export default function Cart() {
   }, []);
 
   const deleteItem = async (bookid) => {
+    const originalCart = [...cart];
     const updatedCart = cart.filter((item) => item._id !== bookid);
     setCart(updatedCart);
 
@@ -45,7 +46,7 @@ export default function Cart() {
       alert(response.data.message);
     } catch (error) {
       console.error("Failed to delete item:", error);
-      setCart(cart);
+      setCart(originalCart);
     }
   };
 
@@ -65,11 +66,7 @@ export default function Cart() {
       const res = await axios.post(
         "https://book-store-web-app-jl7e.onrender.com/api/v1/placeOrder",
         { order: cart },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+        { headers }
       );
       if (res.data.sessionURL) {
         window.location.href = res.data.sessionURL;

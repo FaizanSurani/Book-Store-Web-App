@@ -31,7 +31,7 @@ const user = new mongoose.Schema(
     },
     favourites: [{ type: mongoose.Types.ObjectId, ref: "Book" }],
     cart: [{ type: mongoose.Types.ObjectId, ref: "Book" }],
-    orders: [{ type: mongoose.Types.ObjectId, ref: "orders" }],
+    orders: [{ type: mongoose.Types.ObjectId, ref: "Order" }],
     payments: [{ type: mongoose.Types.ObjectId, ref: "payment" }],
   },
   { timestamps: true }

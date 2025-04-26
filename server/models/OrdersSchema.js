@@ -25,7 +25,7 @@ const orders = new mongoose.Schema(
     status: {
       type: String,
       default: "Order Placed",
-      enum: ["Order Placed" || "Out For Delivery, Delivered, Cancelled"],
+      enum: ["Order Placed", "Out For Delivery", "Delivered", "Cancelled"],
     },
     paymentStatus: {
       type: String,
@@ -40,4 +40,4 @@ const orders = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("orders", orders);
+module.exports = mongoose.model("Order", orders);

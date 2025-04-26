@@ -9,7 +9,7 @@ const payment = new mongoose.Schema(
     orders: [
       {
         type: mongoose.Types.ObjectId,
-        ref: "orders",
+        ref: "Order",
       },
     ],
     stripeSessionId: {
@@ -25,7 +25,6 @@ const payment = new mongoose.Schema(
     },
     currency: {
       type: String,
-      default: "INR",
     },
     status: {
       type: String,

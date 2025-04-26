@@ -15,11 +15,21 @@ router.post("/placeOrder", authentication, async (req, res) => {
       return res.status(400).json({ message: "Invalid order data" });
     }
 
+    for (const item of order) {
+      if (!item.title || !item.price) {
+        return res.status(400).json({ message: "Invalid item in order" });
+      }
+    }
+
     const total = order.reduce((sum, item) => sum + item.price, 0);
 
     const newOrder = new Order({
       user: req.user._id,
-      items: order,
+      items: order.map((item) => ({
+        Book: item.Book._id,
+        quantity: item.quantity || 1,
+        price: item.price,
+      })),
       paymentStatus: "Pending",
       total,
     });
@@ -50,7 +60,10 @@ router.post("/placeOrder", authentication, async (req, res) => {
       sessionURL: session.url,
     });
   } catch (error) {
-    return res.status(500).json({ message: "Server Error!!" });
+    console.error("Place Order Error:", error);
+    return res
+      .status(500)
+      .json({ message: "Server Error!!", error: error.message });
   }
 });
 
@@ -74,12 +87,12 @@ router.post(
 
         const orderIDs = JSON.parse(session.metadata.orders);
 
-        await orders.updateMany(
+        await Order.updateMany(
           { _id: { $in: orderIDs } },
           { $set: { paymentStatus: "Paid" } }
         );
 
-        await payment.create({
+        const createdPayment = await payment.create({
           user: session.metadata.user,
           orders: orderIDs,
           stripeSessionId: session.id,
@@ -90,7 +103,7 @@ router.post(
         });
 
         await user.findByIdAndUpdate(session.metadata.user, {
-          $push: { payments: payment._id },
+          $push: { payments: createdPayment._id },
         });
 
         await user.findByIdAndUpdate(session.metadata.user, {
@@ -115,9 +128,9 @@ router.get("/orderHistory", authentication, async (req, res) => {
   try {
     const { id } = req.headers;
 
-    const userData = await user.findById(id).populate({
+    const userData = await user.findById(req.user._id).populate({
       path: "orders",
-      populate: { path: "Book" },
+      populate: { path: "items.Book" },
     });
 
     const ordersData = userData.orders.reverse();
@@ -132,7 +145,7 @@ router.get("/orderHistory", authentication, async (req, res) => {
 router.get("/allOrders", authentication, async (req, res) => {
   try {
     const usersOrder = await Order.find()
-      .populate({ path: "Book" })
+      .populate({ path: "items.Book" })
       .populate({ path: "user" })
       .sort({ createdAt: -1 });
 
