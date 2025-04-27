@@ -16,7 +16,7 @@ export default function ResetPassword() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://book-store-web-app-jl7e.onrender.com/api/v1/resetPassword/${token}`,
+        `https://book-store-web-app-gl7e.onrender.com/api/v1/resetPassword/${token}`,
         { password: password }
       );
       alert(response.data.message);

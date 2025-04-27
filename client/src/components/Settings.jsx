@@ -17,7 +17,7 @@ export default function Settings() {
   useEffect(() => {
     const fetch = async () => {
       const res = await axios.get(
-        "https://book-store-web-app-jl7e.onrender.com/api/v1/getUser",
+        "https://book-store-web-app-gl7e.onrender.com/api/v1/getUser",
         {
           headers,
         }
@@ -37,7 +37,7 @@ export default function Settings() {
 
   const changeDetails = async () => {
     const res = await axios.put(
-      "https://book-store-web-app-jl7e.onrender.com/api/v1/updateProfile",
+      "https://book-store-web-app-gl7e.onrender.com/api/v1/updateProfile",
       values,
       { headers }
     );

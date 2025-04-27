@@ -9,7 +9,7 @@ export default function AllBooks() {
   useEffect(() => {
     const fetch = async () => {
       const res = await axios.get(
-        "https://book-store-web-app-jl7e.onrender.com/api/v1/getAllBooks"
+        "https://book-store-web-app-gl7e.onrender.com/api/v1/getAllBooks"
       );
       console.log(res.data.data);
       setAllBooks(res.data.data);

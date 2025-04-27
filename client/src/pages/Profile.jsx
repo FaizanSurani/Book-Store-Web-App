@@ -17,7 +17,7 @@ export default function Profile() {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        "https://book-store-web-app-jl7e.onrender.com/api/v1/getUser",
+        "https://book-store-web-app-gl7e.onrender.com/api/v1/getUser",
         {
           headers,
         }

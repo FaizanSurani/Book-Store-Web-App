@@ -10,7 +10,7 @@ export const RecommendedBooks = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       const res = await axios.get(
-        `https://book-store-web-app-jl7e.onrender.com/api/v1/recommendation_api/${id}`
+        `https://book-store-web-app-gl7e.onrender.com/api/v1/recommendation_api/${id}`
       );
       console.log(res.data.recommended_products);
       setRecBooks(res.data.recommended_products);

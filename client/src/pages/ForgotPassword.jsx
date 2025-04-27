@@ -21,7 +21,7 @@ export default function ForgotPassword() {
     }
     try {
       const response = await axios.post(
-        "https://book-store-web-app-jl7e.onrender.com/api/v1/forgotPassword",
+        "https://book-store-web-app-gl7e.onrender.com/api/v1/forgotPassword",
         { email }
       );
       alert(response.data.message);

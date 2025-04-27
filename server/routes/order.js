@@ -11,7 +11,7 @@ router.post("/placeOrder", authentication, async (req, res) => {
   try {
     const { order } = req.body;
 
-    if (!order || !Array.isArray(order) || order.length === 0) {
+    if (!order || !Array.isArray(order)) {
       return res.status(400).json({ message: "Invalid order data" });
     }
 
@@ -82,8 +82,24 @@ router.post(
         return res.status(400).send(`Webhook Error: ${err.message}`);
       }
 
+      if (
+        !session.metadata ||
+        !session.metadata.user ||
+        !session.metadata.orders
+      ) {
+        return res.status(400).send("Invalid metadata");
+      }
+
       if (event.type === "checkout.session.completed") {
         const session = event.data.object;
+
+        if (
+          !session.metadata ||
+          !session.metadata.user ||
+          !session.metadata.orders
+        ) {
+          return res.status(400).send("Invalid metadata");
+        }
 
         const orderIDs = JSON.parse(session.metadata.orders);
 
@@ -103,15 +119,13 @@ router.post(
         });
 
         await user.findByIdAndUpdate(session.metadata.user, {
-          $push: { payments: createdPayment._id },
-        });
-
-        await user.findByIdAndUpdate(session.metadata.user, {
-          $push: { orders: { $each: orderIDs } },
-        });
-
-        await user.findByIdAndUpdate(session.metadata.user, {
-          $pull: { cart: { $in: orderIDs } },
+          $push: {
+            payments: createdPayment._id,
+            orders: { $each: orderIDs },
+          },
+          $pull: {
+            cart: { $in: orderIDs },
+          },
         });
 
         res.json({ received: true });

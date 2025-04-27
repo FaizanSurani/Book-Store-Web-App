@@ -23,7 +23,7 @@ export default function BookDetails() {
   useEffect(() => {
     const bookdetails = async () => {
       const resp = await axios.get(
-        `https://book-store-web-app-jl7e.onrender.com/api/v1/bookid/${id}`
+        `https://book-store-web-app-gl7e.onrender.com/api/v1/bookid/${id}`
       );
       setBookDetails(resp.data.data);
     };
@@ -31,30 +31,45 @@ export default function BookDetails() {
   }, []);
 
   const handleFav = async () => {
-    const res = await axios.put(
-      "https://book-store-web-app-jl7e.onrender.com/api/v1/addFavourites",
-      {},
-      { headers }
-    );
-    alert(res.data.message);
+    try {
+      const res = await axios.put(
+        "https://book-store-web-app-gl7e.onrender.com/api/v1/addFavourites",
+        {},
+        { headers, withCredentials: true }
+      );
+      alert(res.data.message);
+    } catch (error) {
+      console.error("Failed to add item to favourites:", error);
+      alert("Failed to add item to favourites. Please try again.");
+    }
   };
 
   const handleCart = async () => {
-    const res = await axios.put(
-      "https://book-store-web-app-jl7e.onrender.com/api/v1/addItems",
-      {},
-      { headers }
-    );
-    alert(res.data.message);
+    try {
+      const res = await axios.put(
+        "https://book-store-web-app-gl7e.onrender.com/api/v1/addItems",
+        {},
+        { headers, withCredentials: true }
+      );
+      alert(res.data.message);
+    } catch (error) {
+      console.error("Failed to add item to cart:", error);
+      alert("Failed to add item to cart. Please try again.");
+    }
   };
 
   const handleDelete = async () => {
-    const response = await axios.delete(
-      "https://book-store-web-app-jl7e.onrender.com/api/v1/deleteBook",
-      { headers }
-    );
-    alert(response.data.message);
-    navigate("/all-books");
+    try {
+      const response = await axios.delete(
+        "https://book-store-web-app-gl7e.onrender.com/api/v1/deleteBook",
+        { headers, withCredentials: true }
+      );
+      alert(response.data.message);
+      navigate("/all-books");
+    } catch (error) {
+      console.error("Failed to delete book:", error);
+      alert("Failed to delete book. Please try again.");
+    }
   };
 
   return (

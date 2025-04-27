@@ -62,11 +62,16 @@ export default function Cart() {
   }, [cart]);
 
   const placeOrder = async () => {
+    console.log(cart);
     try {
       const res = await axios.post(
         "https://book-store-web-app-jl7e.onrender.com/api/v1/placeOrder",
         { order: cart },
-        { headers }
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
       );
       if (res.data.sessionURL) {
         window.location.href = res.data.sessionURL;
