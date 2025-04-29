@@ -53,7 +53,24 @@ router.post("/placeOrder", authentication, async (req, res) => {
       })),
       mode: "payment",
       success_url: `${process.env.FRONTEND_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.FRONTEND_URL}/cart`,
+      cancel_url: `${process.env.FRONTEND_URL}/api/v1/cart`,
+
+      customer_details: {
+        name: "John Sharma",
+        email: req.user.email || "demo@example.com",
+        address: {
+          line1: "221B Baker Street",
+          city: "Mumbai",
+          state: "Maharashtra",
+          postal_code: "400001",
+          country: "IN",
+        },
+      },
+
+      shipping_address_collection: {
+        allowed_countries: ["IN"],
+      },
+
       metadata: {
         user: req.user.id.toString(),
         orders: JSON.stringify([newOrder._id]),
