@@ -12,7 +12,7 @@ router.post("/placeOrder", authentication, async (req, res) => {
     const { order } = req.body;
     console.log(req.user.id, "user id from place order route");
 
-    if (!req.user._id) {
+    if (!req.user.id) {
       return res.status(401).json({ message: "Unauthorized: User not found" });
     }
 
