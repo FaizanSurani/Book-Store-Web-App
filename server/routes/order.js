@@ -11,7 +11,8 @@ router.post("/placeOrder", authentication, async (req, res) => {
   try {
     const { order } = req.body;
     console.log("Order data received:", order);
-    if (!req.user || !req.user._id) {
+
+    if (!user._id) {
       return res.status(401).json({ message: "Unauthorized: User not found" });
     }
 
@@ -28,9 +29,9 @@ router.post("/placeOrder", authentication, async (req, res) => {
     const total = order.reduce((sum, item) => sum + item.price, 0);
 
     const newOrder = new Order({
-      user: req.user._id,
+      user: user._id,
       items: order.map((item) => ({
-        Book: item.Book._id,
+        Book: item._id,
         quantity: item.quantity || 1,
         price: item.price,
       })),
