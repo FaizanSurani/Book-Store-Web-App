@@ -10,7 +10,7 @@ const endpointSecret = process.env.endpointSecret;
 router.post("/placeOrder", authentication, async (req, res) => {
   try {
     const { order } = req.body;
-    console.log("Order data received:", order);
+    console.log(user._id, "user id from place order route");
 
     if (!user._id) {
       return res.status(401).json({ message: "Unauthorized: User not found" });
