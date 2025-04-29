@@ -8,7 +8,7 @@ export default function OrderHistory() {
   const [loading, setLoading] = useState(true);
   const headers = {
     id: localStorage.getItem("id"),
-    authorization: `Bearer ${localStorage.getItem("authToken")}`,
+    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
   };
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function OrderHistory() {
         <div className="flex justify-center items-center h-full">
           <Loader />
         </div>
-      ) : orders.length === 0 ? ( // Show message when no orders
+      ) : orders.length === 0 ? (
         <div className="h-full flex justify-center items-center">
           <h1 className="text-5xl font-semibold text-zinc-500">
             No Order History
@@ -70,7 +70,7 @@ export default function OrderHistory() {
             </div>
             {orders.map((item, index) => (
               <div
-                key={index}
+                key={item._id}
                 className="bg-zinc-800 w-full rounded py-2 px-4 mt-2 flex gap-4 hover:bg-zinc-900 cursor-pointer transition duration-150 ease-in-out">
                 <div className="w-[3%]">
                   <h1 className="text-center">{index + 1}</h1>
@@ -83,7 +83,11 @@ export default function OrderHistory() {
                   </Link>
                 </div>
                 <div className="w-[45%]">
-                  <h1>{item.Book?.description.slice(0, 50)} ...</h1>
+                  <h1>
+                    {item.Book?.description.length > 50
+                      ? item.Book?.description.slice(0, 50) + "..."
+                      : item.Book?.description}
+                  </h1>
                 </div>
                 <div className="w-[9%]">
                   <h1>&#8377; {item.Book?.price}</h1>

@@ -142,12 +142,16 @@ router.get("/orderHistory", authentication, async (req, res) => {
   try {
     const { id } = req.headers;
 
-    const userData = await user.findById(req.user._id).populate({
+    console.log("User ID:", id);
+
+    const userData = await user.findById(id).populate({
       path: "orders",
       populate: { path: "items.Book" },
     });
 
-    const ordersData = userData.orders.reverse();
+    console.log("User data retrieved:", userData);
+
+    const ordersData = userData.orders ? userData.orders.reverse() : [];
     return res.status(200).json({ data: ordersData });
   } catch (error) {
     console.log(error);
