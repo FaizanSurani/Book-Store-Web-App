@@ -181,4 +181,9 @@ router.put("/updateStatus/:id", authentication, async (req, res) => {
   }
 });
 
+// Add this route in your router (for testing purposes)
+router.get("/testAuth", authentication, (req, res) => {
+  res.status(200).json({ message: "Authenticated", user: req.user });
+});
+
 module.exports = router;
