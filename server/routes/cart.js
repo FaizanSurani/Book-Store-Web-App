@@ -38,16 +38,17 @@ router.get("/cartItems", authentication, async (req, res) => {
     const { id } = req.headers;
 
     const userData = await user.findById(id).populate("cart");
+
+    if (!userData) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     const cartItems = userData.cart.reverse();
 
     return res.status(200).json({ data: cartItems });
   } catch (error) {
     return res.status(500).json({ message: "Server Error!!" });
   }
-});
-
-router.get("/test", (req, res) => {
-  res.send("Cart route is live!");
 });
 
 module.exports = router;
