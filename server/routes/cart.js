@@ -45,4 +45,9 @@ router.get("/cartItems", authentication, async (req, res) => {
     return res.status(500).json({ message: "Server Error!!" });
   }
 });
+
+router.get("/test", (req, res) => {
+  res.send("Cart route is live!");
+});
+
 module.exports = router;

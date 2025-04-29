@@ -21,6 +21,7 @@ export default function Cart() {
           "https://book-store-web-app-jl7e.onrender.com/api/v1/cartItems",
           {
             headers,
+            withCredentials: true,
           }
         );
         setCart(res.data.data);
@@ -41,7 +42,7 @@ export default function Cart() {
       const response = await axios.put(
         `https://book-store-web-app-jl7e.onrender.com/api/v1/removeItems/${bookid}`,
         {},
-        { headers }
+        { headers, withCredentials: true }
       );
       alert(response.data.message);
     } catch (error) {
@@ -71,6 +72,7 @@ export default function Cart() {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
+          withCredentials: true,
         }
       );
       if (res.data.sessionURL) {
