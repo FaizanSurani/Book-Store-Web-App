@@ -10,7 +10,7 @@ const endpointSecret = process.env.endpointSecret;
 router.post("/placeOrder", authentication, async (req, res) => {
   try {
     const { order } = req.body;
-    console.log(user._id, "user id from place order route");
+    console.log(req.user.id, "user id from place order route");
 
     if (!user._id) {
       return res.status(401).json({ message: "Unauthorized: User not found" });
@@ -29,7 +29,7 @@ router.post("/placeOrder", authentication, async (req, res) => {
     const total = order.reduce((sum, item) => sum + item.price, 0);
 
     const newOrder = new Order({
-      user: user._id,
+      user: req.user.id,
       items: order.map((item) => ({
         Book: item._id,
         quantity: item.quantity || 1,
@@ -55,7 +55,7 @@ router.post("/placeOrder", authentication, async (req, res) => {
       success_url: `${process.env.FRONTEND_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.FRONTEND_URL}/cart`,
       metadata: {
-        user: req.user._id.toString(),
+        user: req.user.id.toString(),
         orders: JSON.stringify([newOrder._id]),
       },
     });
