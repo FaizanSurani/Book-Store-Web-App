@@ -10,6 +10,7 @@ const endpointSecret = process.env.endpointSecret;
 router.post("/placeOrder", authentication, async (req, res) => {
   try {
     const { order } = req.body;
+    console.log("Order data received:", order);
     if (!req.user || !req.user._id) {
       return res.status(401).json({ message: "Unauthorized: User not found" });
     }
@@ -85,14 +86,6 @@ router.post(
         return res.status(400).send(`Webhook Error: ${err.message}`);
       }
 
-      if (
-        !session.metadata ||
-        !session.metadata.user ||
-        !session.metadata.orders
-      ) {
-        return res.status(400).send("Invalid metadata");
-      }
-
       if (event.type === "checkout.session.completed") {
         const session = event.data.object;
 
@@ -144,8 +137,6 @@ router.post(
 router.get("/orderHistory", authentication, async (req, res) => {
   try {
     const { id } = req.headers;
-
-    console.log("User ID:", id);
 
     const userData = await user.findById(id).populate({
       path: "orders",

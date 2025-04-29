@@ -63,7 +63,6 @@ export default function Cart() {
   }, [cart]);
 
   const placeOrder = async () => {
-    console.log(cart);
     try {
       const res = await axios.post(
         "https://book-store-web-app-gl7e.onrender.com/api/v1/placeOrder",
