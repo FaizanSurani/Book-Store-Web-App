@@ -8,16 +8,15 @@ DBConnect();
 
 app.use(express.json());
 
-app.all("*", function (req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type,Content-Length, Authorization, Accept,X-Requested-With",
-    "id",
-    "bookid"
-  );
-  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-});
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://book-store-web-app-vgl5.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 app.use("/api/v1", require("./routes/userRoutes"));
 app.use("/api/v1", require("./routes/userData"));
