@@ -10,6 +10,9 @@ const endpointSecret = process.env.endpointSecret;
 router.post("/placeOrder", authentication, async (req, res) => {
   try {
     const { order } = req.body;
+    if (!req.user || !req.user._id) {
+      return res.status(401).json({ message: "Unauthorized: User not found" });
+    }
 
     if (!order || !Array.isArray(order)) {
       return res.status(400).json({ message: "Invalid order data" });
